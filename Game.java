@@ -11,7 +11,7 @@ public class Game {
     private JPanel panel;
     private Container content;
     private ArrayList<JButton> buttons;
-    private Hashtable<Integer, JButton> selectedButtons = new Hashtable<>();
+    private Hashtable<Integer, String> selectedButtons = new Hashtable<>();
     private int numberPressed;
     private boolean isX, isO;
 
@@ -68,7 +68,7 @@ public class Game {
         }
         if (!win() && buttons.isEmpty()) {
             Object[] options = {"Restart", "Quit"};
-            int option = JOptionPane.showOptionDialog(null, "You lose!\nClick Restart to continue", "Sad", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+            int option = JOptionPane.showOptionDialog(frame, "NOBODY WINS!\nClick Restart to continue", "Sad", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
             if (option == JOptionPane.YES_OPTION) {
                 makeFrame();
                 numberPressed = 0;
@@ -76,78 +76,81 @@ public class Game {
                 System.exit(0);
             }
         }
-        if (win() && isX) {
+        if(win() && isX) {
+
             JOptionPane.showMessageDialog(frame, "Player 1, you win!", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
         }
         if(win() && isO)
         {
             JOptionPane.showMessageDialog(frame, "Player 2, you win!", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
         }
+
         frame.repaint();
-        frame.revalidate();
-    }
+        frame.revalidate();}
 
     private void replace(JButton a, JButton c) {
-
-
         int index = panel.getComponentZOrder(a);
         panel.remove(a);
         panel.add(c, index);
-        selectedButtons.put(index, c);
+        selectedButtons.put(index, c.getText());
     }
 
 
     private boolean win() {
         //check horizontal
         if (selectedButtons.containsKey(0) && selectedButtons.containsKey(1) && selectedButtons.containsKey(2)) {
-            if (selectedButtons.get(0).getText().equals(selectedButtons.get(1).getText()) && selectedButtons.get(1).getText().equals(selectedButtons.get(2).getText())) {
-                choosePlayer(selectedButtons.get(0).getText());
-                return true;
+            if (selectedButtons.get(0).equals(selectedButtons.get(1)) && selectedButtons.get(1).equals(selectedButtons.get(2))) {
+                choosePlayer(selectedButtons.get(0));
+                 return true;} }
+        if (selectedButtons.containsKey(3) && selectedButtons.containsKey(4) && selectedButtons.containsKey(5)) {
+            if (selectedButtons.get(3).equals(selectedButtons.get(4)) && selectedButtons.get(4).equals(selectedButtons.get(5))) {
+                choosePlayer(selectedButtons.get(3));
+               return true;
             }
-        } else if (selectedButtons.containsKey(3) && selectedButtons.containsKey(4) && selectedButtons.containsKey(5)) {
-            if (selectedButtons.get(3).getText().equals(selectedButtons.get(4).getText()) && selectedButtons.get(4).getText().equals(selectedButtons.get(5).getText())) {
-                choosePlayer(selectedButtons.get(3).getText());
-                return true;
-            }
-        } else if (selectedButtons.containsKey(6) && selectedButtons.containsKey(7) && selectedButtons.containsKey(8)) {
-            if (selectedButtons.get(6).getText().equals(selectedButtons.get(7).getText()) && selectedButtons.get(7).getText().equals(selectedButtons.get(8).getText())) {
-                choosePlayer(selectedButtons.get(6).getText());
-                return true;
+        }
+        if (selectedButtons.containsKey(6) && selectedButtons.containsKey(7) && selectedButtons.containsKey(8)) {
+            if (selectedButtons.get(6).equals(selectedButtons.get(7)) && selectedButtons.get(7).equals(selectedButtons.get(8))) {
+                choosePlayer(selectedButtons.get(6));
+               return true;
             }
         }
         //check vertical
-        else if (selectedButtons.containsKey(0) && selectedButtons.containsKey(3) && selectedButtons.containsKey(6)) {
-            if (selectedButtons.get(0).getText().equals(selectedButtons.get(3).getText()) && selectedButtons.get(3).getText().equals(selectedButtons.get(6).getText())) {
-                choosePlayer(selectedButtons.get(0).getText());
+        if (selectedButtons.containsKey(0) && selectedButtons.containsKey(3) && selectedButtons.containsKey(6)) {
+            if (selectedButtons.get(0).equals(selectedButtons.get(3)) && selectedButtons.get(3).equals(selectedButtons.get(6))) {
+                choosePlayer(selectedButtons.get(0));
                 return true;
             }
-        } else if (selectedButtons.containsKey(1) && selectedButtons.containsKey(4) && selectedButtons.containsKey(7)) {
-            if (selectedButtons.get(1).getText().equals(selectedButtons.get(4).getText()) && selectedButtons.get(4).getText().equals(selectedButtons.get(7).getText())) {
-                choosePlayer(selectedButtons.get(1).getText());
+        }
+        if (selectedButtons.containsKey(1) && selectedButtons.containsKey(4) && selectedButtons.containsKey(7)) {
+            if (selectedButtons.get(1).equals(selectedButtons.get(4)) && selectedButtons.get(4).equals(selectedButtons.get(7))) {
+                choosePlayer(selectedButtons.get(1));
                 return true;
             }
-        } else if (selectedButtons.containsKey(2) && selectedButtons.containsKey(5) && selectedButtons.containsKey(8)) {
-            if (selectedButtons.get(2).getText().equals(selectedButtons.get(5).getText()) && selectedButtons.get(5).getText().equals(selectedButtons.get(8).getText())) {
-                choosePlayer(selectedButtons.get(2).getText());
-                return true;
+        }
+        if (selectedButtons.containsKey(2) && selectedButtons.containsKey(5) && selectedButtons.containsKey(8)) {
+            if (selectedButtons.get(2).equals(selectedButtons.get(5)) && selectedButtons.get(5).equals(selectedButtons.get(8))) {
+                choosePlayer(selectedButtons.get(2));
+               return true;
             }
         }
         //check diagonal
-        else if (selectedButtons.containsKey(0) && selectedButtons.containsKey(4) && selectedButtons.containsKey(8)) {
-            if (selectedButtons.get(0).getText().equals(selectedButtons.get(4).getText()) && selectedButtons.get(4).getText().equals(selectedButtons.get(8).getText())) {
-                choosePlayer(selectedButtons.get(0).getText());
+        if (selectedButtons.containsKey(0) && selectedButtons.containsKey(4) && selectedButtons.containsKey(8)) {
+            if (selectedButtons.get(0).equals(selectedButtons.get(4)) && selectedButtons.get(4).equals(selectedButtons.get(8))) {
+                choosePlayer(selectedButtons.get(0));
                 return true;
-            } else if (selectedButtons.containsKey(2) && selectedButtons.containsKey(4) && selectedButtons.containsKey(6)) {
-                if (selectedButtons.get(2).getText().equals(selectedButtons.get(4).getText()) && selectedButtons.get(4).getText().equals(selectedButtons.get(6).getText())) {
-                    choosePlayer(selectedButtons.get(2).getText());
-                    return true;
-                }
             }
         }
+        if (selectedButtons.containsKey(2) && selectedButtons.containsKey(4) && selectedButtons.containsKey(6)) {
+            if (selectedButtons.get(2).equals(selectedButtons.get(4)) && selectedButtons.get(4).equals(selectedButtons.get(6))) {
+                choosePlayer(selectedButtons.get(2));
+                return true;
+            }
+        }
+
             return false;
     }
 
-    private void choosePlayer(String a )
+        private void choosePlayer(String a )
     {
         if(a.equals("X"))
         {
